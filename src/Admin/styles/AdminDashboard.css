@@ -1,15 +1,40 @@
-.dashboard {
-  padding: 20px;
+/* ICON */
+.icon {
+  font-size: 22px;
+  color: #e23744;
+  margin-bottom: 10px;
+}
+.stats{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+/* HOVER EFFECT */
+.stat-card {
+  transition: all 0.3s ease;
 }
 
-.cards {
-  display: flex;
-  gap: 20px;
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-.card {
-  background: white;
-  padding: 20px;
-  flex: 1;
-  border-radius: 10px;
+/* BOX HOVER */
+.box {
+  transition: all 0.3s ease;
+  padding-left: 20px;
+}
+
+.box:hover {
+  transform: translateY(-5px);
+}
+
+/* BUTTON HOVER */
+.box button:hover {
+  background: #e23744;
+  color: white;
+  transition: 0.3s;
+}
+.heading{
+    padding: 20px;
 }

@@ -122,3 +122,101 @@ body.dark span {
     font-size: 25px;
     
 }
+body.dark .chart-card {
+  background: #2c2c3e;
+  color: white;
+}
+.equipment {
+  padding: 20px;
+}
+
+.add-btn {
+  margin: 15px 0;
+  padding: 8px 15px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form input,
+.form select {
+  padding: 8px;
+}
+
+.form button {
+  background: #2196f3;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* STATUS COLORS */
+.status.Available {
+  color: green;
+}
+
+.status.InUse {
+  color: orange;
+}
+
+.status.Maintenance {
+  color: red;
+}
+body.dark table {
+  background: #2c2c3e;
+  color: white;
+}
+
+body.dark input {
+  background: #444;
+  color: white;
+}
+body.dark .card,
+body.dark .activity,
+body.dark .actions {
+  background: #2c2c3e;
+  color: white;
+}
+body.dark .sidebar {
+  background: #1e1e2f;
+  color: white;
+}
+
+body.dark .link {
+  color: white;
+}
+
+body.dark .link:hover {
+  background: #333;
+}
+
+body.dark .link.active {
+  background: #e23744;
+}
