@@ -23,6 +23,9 @@ export default function Login( {onLogin}) {
       if(role==='Admin'){
         navigate('/admin/dashboard');
       }
+      else if(role === "Owner"){
+        navigate("/owner/dashboard");
+      }
       else{
         alert('Only Admin panel is implemented');
       }

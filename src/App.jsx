@@ -12,6 +12,10 @@ import Bookings from './Admin/pages/Bookings';
 import Equipment from './Admin/pages/Equipment';
 import Users from './Admin/pages/Users';
 
+import OwnerDashboard from "./Owner/pages/OwnerDashboard";
+import MyEquipment from "./Owner/pages/MyEquipment";
+import Requests from "./Owner/pages/Requests";
+
 function App() {
   const navigate = useNavigate(); // 🔥 ADD THIS
 
@@ -121,6 +125,41 @@ function App() {
             )
           }
         />
+
+
+        // OWNER DASHBOARD
+        <Route
+  path="/owner/dashboard"
+  element={
+    user && user.role === "Owner" ? (
+      <OwnerDashboard user={user} onLogout={handleLogout} />
+    ) : (
+      <Navigate to="/login" />
+    )
+  }
+/>
+
+<Route
+  path="/owner/equipment"
+  element={
+    user && user.role === "Owner" ? (
+      <MyEquipment user={user} onLogout={handleLogout} />
+    ) : (
+      <Navigate to="/login" />
+    )
+  }
+/>
+
+<Route
+  path="/owner/requests"
+  element={
+    user && user.role === "Owner" ? (
+      <Requests user={user} onLogout={handleLogout} />
+    ) : (
+      <Navigate to="/login" />
+    )
+  }
+/>
 
       </Routes>
     </div>
