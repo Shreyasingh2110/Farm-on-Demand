@@ -1,157 +1,170 @@
 import React, { useState } from "react";
-import "../styles/admin.css";
-import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
+import "../styles/Users.css";
 
 function Users({ user, onLogout }) {
-  const [search, setSearch] = useState("");
-  const [showModal, setShowModal] = useState(false);
-
   const [users, setUsers] = useState([
     { name: "Shreya", email: "shreya@gmail.com", role: "Admin" },
-    { name: "Priya", email: "priya@gmail.com", role: "Admin" },
-    { name: "Rahul", email: "rahul@gmail.com", role: "Farmer" },
-    { name: "Krishna", email: "kp@gmail.com", role: "Owner" },
-    { name: "Ittishree", email: "ittishree@gmail.com", role: "Owner" },
-    { name: "Purabi", email: "purabi@gmail.com", role: "Farmer" },
-    { name: "Saipriti", email: "saipriti@gmail.com", role: "Owner" },
-    { name: "Ranit", email: "ranit@gmail.com", role: "Farmer" },
-    { name: "Ashish", email: "ashish@gmail.com", role: "Owner" },
-    { name: "Nishit", email: "nishit@gmail.com", role: "Farmer" }
+    { name: "Rahul", email: "rahul@gmail.com", role: "User" }
   ]);
 
-  const [newUser, setNewUser] = useState({
+  const [showForm, setShowForm] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
+
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
-    role: "Owner"
+    role: "User"
   });
 
-  const handleAddUser = () => {
-    if (!newUser.name || !newUser.email) return;
+  const [search, setSearch] = useState("");
+  const [filterRole, setFilterRole] = useState("All");
 
-    setUsers([...users, newUser]);
-    setNewUser({ name: "", email: "", role: "Owner" });
-    setShowModal(false);
+  // FILTER + SEARCH
+  const filteredUsers = users.filter((u) => {
+    return (
+      (u.name.toLowerCase().includes(search.toLowerCase()) ||
+        u.email.toLowerCase().includes(search.toLowerCase())) &&
+      (filterRole === "All" || u.role === filterRole)
+    );
+  });
+
+  // ADD OR EDIT USER
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (editIndex !== null) {
+      const updated = [...users];
+      updated[editIndex] = formData;
+      setUsers(updated);
+      setEditIndex(null);
+    } else {
+      setUsers([...users, formData]);
+    }
+
+    setFormData({ name: "", email: "", role: "User" });
+    setShowForm(false);
   };
 
-  const filteredUsers = users.filter((u) =>
-    u.name.toLowerCase().includes(search.toLowerCase())
-  );
+  // DELETE USER
+  const handleDelete = (index) => {
+    const updated = users.filter((_, i) => i !== index);
+    setUsers(updated);
+  };
+
+  // EDIT USER
+  const handleEdit = (index) => {
+    setFormData(users[index]);
+    setEditIndex(index);
+    setShowForm(true);
+  };
 
   return (
     <div className="admin-container">
       <Sidebar />
 
-      <div className="main-section">
+      <div className="main-content">
         <Navbar user={user} onLogout={onLogout} />
 
-        <div className="content">
+        <div className="users-container">
           <h2>Users</h2>
 
-          {/* Search */}
-          <input
-            type="text"
-            placeholder="Search users..."
-            className="search-box"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          {/* SEARCH + FILTER */}
+          <div className="controls">
+            <input
+              type="text"
+              placeholder="Search user..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
 
-          {/* Table */}
-          <div className="table-container">
-            <table className="user-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {filteredUsers.map((u, index) => (
-                  <tr key={index}>
-                    <td>{u.name}</td>
-                    <td>{u.email}</td>
-                    <td>
-                      <span
-                        className={
-                            u.role === "Admin"
-                            ? "badge admin"
-                            : u.role === "Farmer"
-                            ? "badge farmer"
-                            : u.role === "Owner"
-                            ? "badge owner"
-                            : "badge user"
-                        }
-                      >
-                        {u.role}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            {filteredUsers.length === 0 && (
-              <p className="no-data">No users found</p>
-            )}
-          </div>
-
-          {/* ADD BUTTON BELOW TABLE */}
-          <div style={{ marginTop: "20px", textAlign: "right" }}>
-            <button
-              className="primary-btn"
-              onClick={() => setShowModal(true)}
+            <select
+              value={filterRole}
+              onChange={(e) => setFilterRole(e.target.value)}
             >
-              + Add User
-            </button>
+              <option>All</option>
+              <option>Admin</option>
+              <option>User</option>
+              <option>Farmer</option>
+            </select>
           </div>
 
-          {/* MODAL */}
-          {showModal && (
-            <div className="modal">
-              <div className="modal-content">
-                <h3>Add New User</h3>
+          {/* TABLE */}
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {filteredUsers.map((u, index) => (
+                <tr key={index}>
+                  <td>{u.name}</td>
+                  <td>{u.email}</td>
+                  <td>{u.role}</td>
+                  <td>
+                    <button onClick={() => handleEdit(index)}>Edit</button>
+                    <button onClick={() => handleDelete(index)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* ADD BUTTON */}
+          <button className="add-btn" onClick={() => setShowForm(true)}>
+            Add User
+          </button>
+
+          {/* FORM */}
+          {showForm && (
+            <div className="form-popup">
+              <form onSubmit={handleSubmit}>
+                <h3>{editIndex !== null ? "Edit User" : "Add User"}</h3>
 
                 <input
                   type="text"
                   placeholder="Name"
-                  value={newUser.name}
+                  required
+                  value={formData.name}
                   onChange={(e) =>
-                    setNewUser({ ...newUser, name: e.target.value })
+                    setFormData({ ...formData, name: e.target.value })
                   }
                 />
 
                 <input
                   type="email"
                   placeholder="Email"
-                  value={newUser.email}
+                  required
+                  value={formData.email}
                   onChange={(e) =>
-                    setNewUser({ ...newUser, email: e.target.value })
+                    setFormData({ ...formData, email: e.target.value })
                   }
                 />
 
                 <select
-                  value={newUser.role}
+                  value={formData.role}
                   onChange={(e) =>
-                    setNewUser({ ...newUser, role: e.target.value })
+                    setFormData({ ...formData, role: e.target.value })
                   }
                 >
-                  <option>Owner</option>
                   <option>Admin</option>
+                  <option>User</option>
                   <option>Farmer</option>
                 </select>
 
-                <div className="modal-actions">
-                  <button onClick={handleAddUser} className="primary-btn">
-                    Add
-                  </button>
-                  <button onClick={() => setShowModal(false)}>
-                    Cancel
-                  </button>
-                </div>
-              </div>
+                <button type="submit">Save</button>
+                <button type="button" onClick={() => setShowForm(false)}>
+                  Cancel
+                </button>
+              </form>
             </div>
           )}
         </div>
