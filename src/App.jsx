@@ -5,6 +5,12 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 
+import AdminDashboard from './Admin/pages/AdminDashboard';
+import Analytics from './Admin/pages/Analytics';
+import Bookings from './Admin/pages/Bookings';
+import Equipment from './Admin/pages/Equipment';
+import Users from './Admin/pages/Users';
+
 function App() {
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('authUser');
@@ -44,6 +50,18 @@ function App() {
             )
           }
         />
+        <Route path='/admin/dashboard' element={
+          user && user.role === "Admin" ?(
+            <AdminDashboard user={user} onLogout={handleLogout} />
+          ):(
+            <Navigate to='/login' replace />
+          )
+        }
+        />
+        <Route path="/admin/analytics" element={<Analytics />} />
+        <Route path="/admin/bookings" element={<Bookings />} />
+        <Route path="/admin/equipment" element={<Equipment />} />
+        <Route path="/admin/users" element={<Users />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>

@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 import logo from "../assets/logo.png";
 import bg from "../assets/bg.jpg";
-export default function Login() {
+export default function Login( {onLogin}) {
+  const navigate=useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("Farmer");
@@ -14,10 +16,16 @@ export default function Login() {
     if (!email) newErrors.email = "Email is required";
     else if (!emailPattern.test(email)) newErrors.email = "Invalid email format";
     if (!password) newErrors.password = "Password is required";
-    if (!role) newErrors.role = "Please select a role";
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      alert("Login Successful!\nRole: " + role);
+      const userData={email,role};
+      onLogin(userData);
+      if(role==='Admin'){
+        navigate('/admin/dashboard');
+      }
+      else{
+        alert('Only Admin panel is implemented');
+      }
       setEmail("");
       setPassword("");
       setRole("Farmer");
@@ -25,25 +33,13 @@ export default function Login() {
   };
   return (
     <div className="page" style={{ backgroundImage: `url(${bg})` }}>
-      {/* HEADER */}
-      <header>
-        <div className="logo">
-          <img src={logo} alt="logo" />
-        </div>
-        <nav>
-          <a href="#">Home</a>
-          <a href="#">Equipment</a>
-          <a href="#">About</a>
-          <a href="#">Contact</a>
-        </nav>
-      </header>
       {/* LOGIN */}
       <div className="container">
         {/* LEFT */}
         <div className="left">
           <img src={logo} alt="logo" />
           <h1>Farm OnDemand</h1>
-          <h4>Connecting Farmers with tools</h4>
+          <h4>Connecting Farmers With Tools</h4>
         </div>
         {/* RIGHT */}
         <div className="right">
