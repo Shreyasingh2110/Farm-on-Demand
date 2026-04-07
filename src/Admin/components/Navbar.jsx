@@ -17,7 +17,7 @@ function Navbar({ user, onLogout }) {
 
   return (
     <div className="navbar">
-      <h3 className="head">Welcome, {user?.name || "Admin"}</h3>
+      <h3 className="head">Welcome! {user?.name || "Admin"}</h3>
 
       <div className="nav-actions">
         <button onClick={() => setDark(!dark)}>

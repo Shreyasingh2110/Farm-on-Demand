@@ -1,38 +1,33 @@
 import React from "react";
-import "../styles/admin.css";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import "../styles/Bookings.css";
 
 function Bookings({ user, onLogout }) {
   return (
     <div className="admin-container">
       <Sidebar />
 
-      <div className="main-section">
+      <div className="main-content">
         <Navbar user={user} onLogout={onLogout} />
 
-        <div className="content">
+        <div className="bookings">
           <h2>Bookings</h2>
 
-          <table className="user-table">
+          <table>
             <thead>
               <tr>
                 <th>User</th>
+                <th>Equipment</th>
                 <th>Date</th>
-                <th>Status</th>
               </tr>
             </thead>
 
             <tbody>
               <tr>
-                <td>Shreya</td>
-                <td>10 Apr</td>
-                <td>Confirmed</td>
-              </tr>
-              <tr>
                 <td>Rahul</td>
-                <td>12 Apr</td>
-                <td>Pending</td>
+                <td>Tractor</td>
+                <td>10 Apr</td>
               </tr>
             </tbody>
           </table>

@@ -1,0 +1,15 @@
+.equipment {
+  padding: 20px;
+}
+
+.equip-list {
+  display: flex;
+  gap: 20px;
+}
+
+.equip-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 200px;
+}

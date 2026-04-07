@@ -1,41 +1,23 @@
 import React from "react";
-import "../styles/admin.css";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import "../styles/Equipment.css";
 
 function Equipment({ user, onLogout }) {
   return (
     <div className="admin-container">
       <Sidebar />
 
-      <div className="main-section">
+      <div className="main-content">
         <Navbar user={user} onLogout={onLogout} />
 
-        <div className="content">
+        <div className="equipment">
           <h2>Equipment</h2>
 
-          <table className="user-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Qty</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td>Projector</td>
-                <td>5</td>
-                <td>Available</td>
-              </tr>
-              <tr>
-                <td>Camera</td>
-                <td>2</td>
-                <td>In Use</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="equip-list">
+            <div className="equip-card">Tractor</div>
+            <div className="equip-card">Harvester</div>
+          </div>
         </div>
       </div>
     </div>
