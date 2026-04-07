@@ -1,4 +1,3 @@
-import {useState,useEffect} from "react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import "../styles/admin.css";
@@ -13,14 +12,7 @@ import {
 } from "recharts";
 
 function AdminDashboard({ user, onLogout }) {
-    const [dark, setDark] = useState(false);
-    useEffect(() => {
-        if(dark){
-            document.body.classList.add("dark");
-        } else {
-            document.body.classList.remove("dark");
-        }
-    }, [dark]);
+
   const data = [
     { name: "Mon", bookings: 10 },
     { name: "Tue", bookings: 15 },

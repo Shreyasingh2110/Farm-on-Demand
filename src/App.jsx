@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
+
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
@@ -12,14 +13,22 @@ import Equipment from './Admin/pages/Equipment';
 import Users from './Admin/pages/Users';
 
 function App() {
+  const navigate = useNavigate(); // 🔥 ADD THIS
+
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+    }
+  }, []);
+
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('authUser');
-    if (!saved) {
-      return null;
-    }
+    if (!saved) return null;
+
     try {
       return JSON.parse(saved);
-    } catch (error) {
+    } catch {
       localStorage.removeItem('authUser');
       return null;
     }
@@ -33,13 +42,18 @@ function App() {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('authUser');
+    navigate("/login"); // 🔥 FIX: redirect after logout
   };
 
   return (
     <div className="App">
       <Routes>
+
         <Route path="/" element={<Landing />} />
+
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
+
+        {/* USER DASHBOARD */}
         <Route
           path="/dashboard"
           element={
@@ -50,18 +64,64 @@ function App() {
             )
           }
         />
-        <Route path='/admin/dashboard' element={
-          user && user.role === "Admin" ?(
-            <AdminDashboard user={user} onLogout={handleLogout} />
-          ):(
-            <Navigate to='/login' replace />
-          )
-        }
+
+        {/* ADMIN DASHBOARD */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            user && user.role === "Admin" ? (
+              <AdminDashboard user={user} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
         />
-        <Route path="/admin/users" element={<Users user={user} onLogout={handleLogout} />} />
-<Route path="/admin/bookings" element={<Bookings user={user} onLogout={handleLogout} />} />
-<Route path="/admin/equipment" element={<Equipment user={user} onLogout={handleLogout} />} />
-<Route path="/admin/analytics" element={<Analytics user={user} onLogout={handleLogout} />} />
+
+        {/* 🔥 PROTECTED ADMIN PAGES */}
+        <Route
+          path="/admin/users"
+          element={
+            user && user.role === "Admin" ? (
+              <Users user={user} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+
+        <Route
+          path="/admin/bookings"
+          element={
+            user && user.role === "Admin" ? (
+              <Bookings user={user} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+
+        <Route
+          path="/admin/equipment"
+          element={
+            user && user.role === "Admin" ? (
+              <Equipment user={user} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+
+        <Route
+          path="/admin/analytics"
+          element={
+            user && user.role === "Admin" ? (
+              <Analytics user={user} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+
       </Routes>
     </div>
   );

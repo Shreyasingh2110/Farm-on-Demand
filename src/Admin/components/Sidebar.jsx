@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 function Sidebar() {
   return (
     <div className="sidebar">
+      <img src={logo} alt="logo" className="logo"/>
       <h1>Admin</h1>
 
       <NavLink to="/admin/dashboard" className="link">
