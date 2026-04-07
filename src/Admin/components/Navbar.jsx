@@ -13,11 +13,9 @@ function Navbar({ user, onLogout }) {
 
   return (
     <div className="navbar">
-
-      <h2 id="he">Welcome! {user?.name || "Admin"}</h2>
+      <h3>Welcome, {user?.name || "Admin"}</h3>
 
       <div className="nav-actions">
-
         <button onClick={() => setDark(!dark)}>
           {dark ? "☀️" : "🌙"}
         </button>
@@ -25,7 +23,6 @@ function Navbar({ user, onLogout }) {
         <button className="logout-btn" onClick={onLogout}>
           Logout
         </button>
-
       </div>
     </div>
   );

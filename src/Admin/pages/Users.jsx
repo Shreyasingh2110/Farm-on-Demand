@@ -1,20 +1,19 @@
 import React from "react";
 import "../styles/admin.css";
-import Sidebar from "../components/Sidebar";   
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 
-function Users() {
+function Users({ user, onLogout }) {
   return (
     <div className="admin-container">
-
       <Sidebar />
 
       <div className="main-section">
-
-        <div className="navbar">
-          <h3>Users</h3>
-        </div>
+        <Navbar user={user} onLogout={onLogout} />
 
         <div className="content">
+          <h2>Users</h2>
+
           <table className="user-table">
             <thead>
               <tr>
@@ -38,7 +37,6 @@ function Users() {
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
   );

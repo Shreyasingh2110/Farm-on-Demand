@@ -1,25 +1,24 @@
 import React from "react";
 import "../styles/admin.css";
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 
-function Equipment() {
+function Equipment({ user, onLogout }) {
   return (
     <div className="admin-container">
-
       <Sidebar />
 
       <div className="main-section">
-
-        <div className="navbar">
-          <h3>Equipment</h3>
-        </div>
+        <Navbar user={user} onLogout={onLogout} />
 
         <div className="content">
+          <h2>Equipment</h2>
+
           <table className="user-table">
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Quantity</th>
+                <th>Qty</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -38,7 +37,6 @@ function Equipment() {
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
   );

@@ -58,11 +58,10 @@ function App() {
           )
         }
         />
-        <Route path="/admin/analytics" element={<Analytics />} />
-        <Route path="/admin/bookings" element={<Bookings />} />
-        <Route path="/admin/equipment" element={<Equipment />} />
-        <Route path="/admin/users" element={<Users />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/admin/users" element={<Users user={user} onLogout={handleLogout} />} />
+<Route path="/admin/bookings" element={<Bookings user={user} onLogout={handleLogout} />} />
+<Route path="/admin/equipment" element={<Equipment user={user} onLogout={handleLogout} />} />
+<Route path="/admin/analytics" element={<Analytics user={user} onLogout={handleLogout} />} />
       </Routes>
     </div>
   );

@@ -148,3 +148,13 @@ body.dark .activity {
     font-size: 30px;
     padding: 10px;
 }
+.nav-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.link.active {
+  background-color: #ffecec;
+  color: #e23744;
+  font-weight: 600;
+}
