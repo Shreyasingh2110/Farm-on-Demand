@@ -27,7 +27,7 @@ export default function Login( {onLogin}) {
         navigate("/owner/dashboard");
       }
       else{
-        alert('Only Admin panel is implemented');
+        navigate("/farmer/dashboard");
       }
       setEmail("");
       setPassword("");
