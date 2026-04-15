@@ -1,13 +1,7 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
-=======
-import React, { useState, useEffect } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
-import './App.css';
 import "./Admin/styles/admin.css";
->>>>>>> 88340e927403780c50c7600dba6fcfbc799ef256
 
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
