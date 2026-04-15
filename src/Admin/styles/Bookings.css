@@ -1,0 +1,72 @@
+.bookings {
+  padding: 20px;
+}
+
+.add-btn {
+  margin: 15px 0;
+  padding: 8px 15px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form input {
+  padding: 8px;
+}
+
+.form button {
+  background: #2196f3;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* BUTTONS */
+.approve-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* STATUS COLORS */
+.status.Pending {
+  color: orange;
+}
+
+.status.Approved {
+  color: green;
+}
+
+.status.Completed {
+  color: blue;
+}
